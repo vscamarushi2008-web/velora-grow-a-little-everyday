@@ -1,11 +1,10 @@
-const CACHE_NAME = "velora-v1";
+const CACHE_NAME = "velora-v2";
 const ASSETS = [
     "index.html",
     "styles.css",
     "app.js",
     "manifest.json",
-    "icon.svg",
-    "https://unpkg.com/lucide@latest"
+    "icon.svg"
 ];
 
 // Install Event
