@@ -1,7 +1,7 @@
 {
-  "name": "Momentum Habit Tracker",
-  "short_name": "Momentum",
-  "description": "Small steps. Every day.",
+  "name": "Velora",
+  "short_name": "Velora",
+  "description": "Grow a little every day.",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#F8F7FF",

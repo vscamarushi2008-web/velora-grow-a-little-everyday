@@ -1,4 +1,4 @@
-const CACHE_NAME = "momentum-v1";
+const CACHE_NAME = "velora-v1";
 const ASSETS = [
     "index.html",
     "styles.css",

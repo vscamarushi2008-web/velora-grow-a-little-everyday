@@ -1,5 +1,5 @@
 // ==========================================================================
-// MOMENTUM — BUSINESS LOGIC & STATE MANAGEMENT
+// Velora — BUSINESS LOGIC & STATE MANAGEMENT
 // ==========================================================================
 
 // Application State
@@ -68,9 +68,9 @@ function formatPrettyDate(dateStr) {
 // ==========================================================================
 function loadState() {
     try {
-        const localActive = localStorage.getItem("momentum_active_habits");
-        const localHistory = localStorage.getItem("momentum_history");
-        const localSettings = localStorage.getItem("momentum_settings");
+        const localActive = localStorage.getItem("Velora_active_habits");
+        const localHistory = localStorage.getItem("Velora_history");
+        const localSettings = localStorage.getItem("Velora_settings");
 
         if (localActive && localHistory) {
             state.activeHabits = JSON.parse(localActive);
@@ -89,49 +89,28 @@ function loadState() {
 
 function saveState() {
     try {
-        localStorage.setItem("momentum_active_habits", JSON.stringify(state.activeHabits));
-        localStorage.setItem("momentum_history", JSON.stringify(state.history));
-        localStorage.setItem("momentum_settings", JSON.stringify(state.settings));
+        localStorage.setItem("Velora_active_habits", JSON.stringify(state.activeHabits));
+        localStorage.setItem("Velora_history", JSON.stringify(state.history));
+        localStorage.setItem("Velora_settings", JSON.stringify(state.settings));
     } catch (e) {
         console.error("Error saving state to local storage:", e);
     }
 }
 
 function initFirstLaunch() {
-    // 1. Initial Habits (first launch experience)
-    state.activeHabits = [
-        {
-            id: "habit_dsa_cpp",
-            name: "Learn C++ for DSA",
-            category: "dsa",
-            duration: 20,
-            createdAt: new Date().toISOString()
-        },
-        {
-            id: "habit_dsa_prob",
-            name: "Solve 1 DSA Problem",
-            category: "dsa",
-            duration: null,
-            createdAt: new Date().toISOString()
-        },
-        {
-            id: "habit_internship",
-            name: "Internship Work",
-            category: "coding",
-            duration: null,
-            createdAt: new Date().toISOString()
-        }
-    ];
 
-    // 2. Initialize history for today
+    // No default habits
+    state.activeHabits = [];
+
+    // Initialize empty history for today
     const todayStr = getLocalDateString();
+
     state.history[todayStr] = {
         date: todayStr,
-        tasks: state.activeHabits.map(h => ({ ...h, completed: false }))
+        tasks: []
     };
 
-    // 3. Mark first launch complete
-    localStorage.setItem("momentum_first_launch", "true");
+    localStorage.setItem("velora_first_launch", "true");
     saveState();
 }
 
@@ -411,7 +390,7 @@ function runNotificationScheduler() {
             "Take 5 minutes for your habits. 🌱"
         ];
         const randomBody = reminders[Math.floor(Math.random() * reminders.length)];
-        sendNotification("Momentum Reminder", randomBody);
+        sendNotification("velora Reminder", randomBody);
 
         lastNotificationDate = todayStr;
     }
@@ -498,7 +477,7 @@ function renderToday() {
             <div class="empty-state">
                 <span class="empty-icon">🌸</span>
                 <h3 class="empty-title">No tasks yet</h3>
-                <p class="empty-body">Add one small goal and start building momentum.</p>
+                <p class="empty-body">Add one small goal and start building Velora.</p>
             </div>
         `;
         return;
@@ -964,7 +943,7 @@ document.getElementById("settings-reminder-time").addEventListener("change", (e)
 
 // Notification Test Action button
 document.getElementById("test-notification-btn").addEventListener("click", () => {
-    sendNotification("Momentum Test", "Consistency brings success! Keep going! 🌸");
+    sendNotification("Velora Test", "Consistency brings success! Keep going! 🌸");
 });
 
 // Danger Zone Reset All Data
@@ -1050,7 +1029,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // 6. Register Service Worker for PWA / Offline support
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("sw.js")
-            .then(() => console.log("Momentum Service Worker Registered"))
+            .then(() => console.log("Velora Service Worker Registered"))
             .catch(err => console.warn("Service Worker registration failed:", err));
     }
 });

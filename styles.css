@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MOMENTUM — DESIGN SYSTEM & VARIABLES
+   Velora — DESIGN SYSTEM & VARIABLES
    ========================================================================== */
 :root {
     /* Color Palette */
@@ -45,7 +45,8 @@
 }
 
 body {
-    background-color: #EBEAFA; /* Desktop wrapper background */
+    background-color: #EBEAFA;
+    /* Desktop wrapper background */
     color: var(--text-primary);
     min-height: 100vh;
     display: flex;
@@ -437,7 +438,8 @@ body {
 
 /* Daily Motivation Card */
 .quote-card {
-    background-color: #FFFDF9; /* Warm vintage feel */
+    background-color: #FFFDF9;
+    /* Warm vintage feel */
     border-left: 4px solid var(--accent-dark);
     padding: 16px;
     border-radius: var(--radius-md);
@@ -540,19 +542,65 @@ body {
     transform: translateY(-50%);
 }
 
-.dsa-theme { --cat-bg: #EEF2FF; --cat-color: #4F46E5; --cat-accent: #C7D2FE; }
-.coding-theme { --cat-bg: #FFF7ED; --cat-color: #EA580C; --cat-accent: #FED7AA; }
-.study-theme { --cat-bg: #ECFEFF; --cat-color: #0891B2; --cat-accent: #CFFAFE; }
-.reading-theme { --cat-bg: #FDF2F8; --cat-color: #DB2777; --cat-accent: #FBCFE8; }
-.fitness-theme { --cat-bg: #F0FDF4; --cat-color: #16A34A; --cat-accent: #BBF7D0; }
-.personal-theme { --cat-bg: #FFF1F2; --cat-color: #E11D48; --cat-accent: #FECDD3; }
+.dsa-theme {
+    --cat-bg: #EEF2FF;
+    --cat-color: #4F46E5;
+    --cat-accent: #C7D2FE;
+}
 
-.task-card.dsa .category-indicator { background-color: #4F46E5; }
-.task-card.coding .category-indicator { background-color: #EA580C; }
-.task-card.study .category-indicator { background-color: #0891B2; }
-.task-card.reading .category-indicator { background-color: #DB2777; }
-.task-card.fitness .category-indicator { background-color: #16A34A; }
-.task-card.personal .category-indicator { background-color: #E11D48; }
+.coding-theme {
+    --cat-bg: #FFF7ED;
+    --cat-color: #EA580C;
+    --cat-accent: #FED7AA;
+}
+
+.study-theme {
+    --cat-bg: #ECFEFF;
+    --cat-color: #0891B2;
+    --cat-accent: #CFFAFE;
+}
+
+.reading-theme {
+    --cat-bg: #FDF2F8;
+    --cat-color: #DB2777;
+    --cat-accent: #FBCFE8;
+}
+
+.fitness-theme {
+    --cat-bg: #F0FDF4;
+    --cat-color: #16A34A;
+    --cat-accent: #BBF7D0;
+}
+
+.personal-theme {
+    --cat-bg: #FFF1F2;
+    --cat-color: #E11D48;
+    --cat-accent: #FECDD3;
+}
+
+.task-card.dsa .category-indicator {
+    background-color: #4F46E5;
+}
+
+.task-card.coding .category-indicator {
+    background-color: #EA580C;
+}
+
+.task-card.study .category-indicator {
+    background-color: #0891B2;
+}
+
+.task-card.reading .category-indicator {
+    background-color: #DB2777;
+}
+
+.task-card.fitness .category-indicator {
+    background-color: #16A34A;
+}
+
+.task-card.personal .category-indicator {
+    background-color: #E11D48;
+}
 
 /* Custom Checkbox */
 .checkbox-wrapper {
@@ -560,7 +608,8 @@ body {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
-    margin-left: 6px; /* Offset for category line */
+    margin-left: 6px;
+    /* Offset for category line */
 }
 
 .custom-checkbox {
@@ -842,9 +891,18 @@ body {
     border-radius: var(--radius-sm);
 }
 
-.legend-dot.completed { background-color: var(--success); }
-.legend-dot.missed { background-color: var(--danger-light); }
-.legend-dot.streak { font-size: 12px; line-height: 1; }
+.legend-dot.completed {
+    background-color: var(--success);
+}
+
+.legend-dot.missed {
+    background-color: var(--danger-light);
+}
+
+.legend-dot.streak {
+    font-size: 12px;
+    line-height: 1;
+}
 
 /* ==========================================================================
    STATISTICS VIEW
@@ -877,9 +935,20 @@ body {
     align-items: center;
 }
 
-.stat-icon-wrapper.fire { background-color: #FFF2E6; color: #FF7E21; }
-.stat-icon-wrapper.trophy { background-color: #FEFBE8; color: #EAB308; }
-.stat-icon-wrapper.check { background-color: #F0FDF4; color: #16A34A; }
+.stat-icon-wrapper.fire {
+    background-color: #FFF2E6;
+    color: #FF7E21;
+}
+
+.stat-icon-wrapper.trophy {
+    background-color: #FEFBE8;
+    color: #EAB308;
+}
+
+.stat-icon-wrapper.check {
+    background-color: #F0FDF4;
+    color: #16A34A;
+}
 
 .stat-icon-wrapper svg {
     width: 18px;
@@ -1222,14 +1291,14 @@ body {
     background-color: white;
     transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.toggle-switch input:checked + .toggle-slider {
+.toggle-switch input:checked+.toggle-slider {
     background-color: var(--primary);
 }
 
-.toggle-switch input:checked + .toggle-slider:before {
+.toggle-switch input:checked+.toggle-slider:before {
     transform: translateX(20px);
 }
 
@@ -1381,7 +1450,8 @@ body {
 
 .sheet-content {
     width: 100%;
-    max-width: 440px; /* Limit on large screens */
+    max-width: 440px;
+    /* Limit on large screens */
     background-color: var(--white);
     border-top-left-radius: var(--radius-lg);
     border-top-right-radius: var(--radius-lg);
@@ -1403,6 +1473,7 @@ body {
         border-radius: 28px;
         overflow: hidden;
     }
+
     .sheet-content {
         max-width: 100%;
         border-bottom-left-radius: 28px;
@@ -1523,7 +1594,7 @@ body {
     background-color: var(--bg-color);
 }
 
-.category-chip input:checked + .chip-content {
+.category-chip input:checked+.chip-content {
     border-color: var(--cat-accent);
     background-color: var(--cat-bg);
     transform: scale(1.03);
@@ -1540,7 +1611,7 @@ body {
     color: var(--text-primary);
 }
 
-.category-chip input:checked + .chip-content .chip-label {
+.category-chip input:checked+.chip-content .chip-label {
     color: var(--cat-color);
 }
 
@@ -1777,8 +1848,13 @@ body {
    ANIMATIONS
    ========================================================================== */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeSlideIn {
@@ -1786,6 +1862,7 @@ body {
         opacity: 0;
         transform: translateY(8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1797,6 +1874,7 @@ body {
         transform: scale(0.9);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
@@ -1804,21 +1882,49 @@ body {
 }
 
 @keyframes flamePulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.06); filter: drop-shadow(0 0 4px rgba(255,126,33,0.3)); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.06);
+        filter: drop-shadow(0 0 4px rgba(255, 126, 33, 0.3));
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-    100% { transform: translateY(0px); }
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 @keyframes bounceIn {
-    0% { transform: scale(0.9); opacity: 0; }
-    60% { transform: scale(1.02); opacity: 0.8; }
-    100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.02);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .bounce-in {
@@ -1837,9 +1943,11 @@ body {
         background-color: var(--bg-color);
         align-items: flex-start;
     }
+
     .app-wrapper {
         padding: 0;
     }
+
     .phone-frame {
         width: 100vw;
         height: 100vh;
@@ -1847,14 +1955,17 @@ body {
         border: none;
         box-shadow: none;
     }
+
     .screen-container {
         padding-top: max(var(--safe-top), env(safe-area-inset-top));
     }
+
     .bottom-nav {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         padding-bottom: max(12px, env(safe-area-inset-bottom));
     }
+
     #confetti-canvas {
         width: 100vw;
         height: 100vh;
