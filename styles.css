@@ -208,19 +208,22 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 72px;
-    background-color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-top: 1px solid rgba(139, 124, 248, 0.08);
+    height: 82px;
+
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 0 10px;
+
+    padding: 0 12px;
     padding-bottom: env(safe-area-inset-bottom);
+
+    border-top: 1px solid rgba(139, 124, 248, 0.08);
+
     z-index: 20;
-    border-bottom-left-radius: 28px;
-    border-bottom-right-radius: 28px;
 }
 
 .nav-item {
@@ -256,34 +259,50 @@ body {
 }
 
 .fab-spacer {
-    width: 50px;
+    width: 72px;
     flex-shrink: 0;
 }
 
 /* Floating Action Button */
 .floating-fab {
     position: absolute;
-    bottom: 24px;
+
     left: 50%;
+    bottom: 48px;
+
     transform: translateX(-50%);
-    width: 58px;
-    height: 58px;
-    border-radius: var(--radius-full);
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+    width: 68px;
+    height: 68px;
+
+    border-radius: 50%;
     border: none;
-    box-shadow: 0 8px 20px rgba(139, 124, 248, 0.35);
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color: white;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--white);
+
     cursor: pointer;
-    z-index: 25;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    z-index: 30;
+
+    box-shadow:
+        0 12px 30px rgba(139,124,248,0.35),
+        0 4px 10px rgba(139,124,248,0.20);
+
+    transition: all 0.25s ease;
 }
 
 .floating-fab:hover {
     transform: translateX(-50%) scale(1.08);
-    box-shadow: 0 10px 24px rgba(139, 124, 248, 0.45);
 }
 
 .floating-fab:active {
@@ -291,8 +310,8 @@ body {
 }
 
 .floating-fab svg {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
 }
 
 /* ==========================================================================
@@ -1939,6 +1958,9 @@ body {
    MOBILE VIEWPORTS (OVERRIDES PHONE BEZEL)
    ========================================================================== */
 @media (max-width: 500px) {
+   .floating-fab {
+       bottom: 42px;
+   }
     body {
         background-color: var(--bg-color);
         align-items: flex-start;
