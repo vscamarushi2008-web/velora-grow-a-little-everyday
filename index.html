@@ -1,36 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Velora — Grow a little every day.</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Velora — Grow a little everyday</title>
+    
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#F8F7FF">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%238B7CF8'/><text x='50%' y='68%' font-size='50' text-anchor='middle'>🔥</text></svg>">
-    <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%238B7CF8'/><text x='50%' y='68%' font-size='50' text-anchor='middle'>🔥</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%238B7CF8'/><text x='50%' y='68%' font-size='50' text-anchor='middle'>🔥</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%238B7CF8'/><text x='50%' y='68%' font-size='50' text-anchor='middle'>🔥</text></svg>">
     <link rel="manifest" href="manifest.json">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-
 <body>
     <!-- Canvas for Celebratory Confetti -->
     <canvas id="confetti-canvas"></canvas>
@@ -40,7 +33,7 @@
         <div class="phone-frame">
             <!-- Screen Content Container -->
             <div class="screen-container">
-
+                
                 <!-- Main Header (Static / Dynamic Greeting) -->
                 <header class="app-header">
                     <div class="header-profile">
@@ -59,12 +52,12 @@
 
                 <!-- Page Contents Wrapper -->
                 <main class="page-content" id="page-content">
-
+                    
                     <!-- ========================================== -->
                     <!-- TODAY PAGE (DEFAULT) -->
                     <!-- ========================================== -->
                     <section class="page active" id="page-today">
-
+                        
                         <!-- Streak & Progress Section -->
                         <div class="dashboard-grid">
                             <!-- Streak Card -->
@@ -100,7 +93,7 @@
                         <div class="quote-card fade-in">
                             <div class="quote-icon">✨</div>
                             <p class="quote-text" id="motivation-quote">"One small step is enough today."</p>
-                            <span class="quote-author">VELORA DAILY</span>
+                            <span class="quote-author">Velora Daily</span>
                         </div>
 
                         <!-- Today's Tasks Section -->
@@ -140,13 +133,7 @@
 
                             <!-- Days of Week Headers -->
                             <div class="calendar-weekdays">
-                                <div>M</div>
-                                <div>T</div>
-                                <div>W</div>
-                                <div>T</div>
-                                <div>F</div>
-                                <div>S</div>
-                                <div>S</div>
+                                <div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div><div>S</div>
                             </div>
 
                             <!-- Calendar Grid -->
@@ -220,11 +207,8 @@
                                 <div class="completion-rates-split">
                                     <div class="circular-progress-wrapper">
                                         <svg class="circular-svg" viewBox="0 0 36 36">
-                                            <path class="circular-bg"
-                                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                            <path class="circular-fill" id="stats-monthly-ring"
-                                                stroke-dasharray="0, 100"
-                                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <path class="circular-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <path class="circular-fill" id="stats-monthly-ring" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                                         </svg>
                                         <div class="circular-text">
                                             <span class="circular-percent" id="stats-monthly-percent">0%</span>
@@ -233,11 +217,8 @@
                                     </div>
                                     <div class="circular-progress-wrapper">
                                         <svg class="circular-svg" viewBox="0 0 36 36">
-                                            <path class="circular-bg"
-                                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                            <path class="circular-fill secondary-ring" id="stats-weekly-ring"
-                                                stroke-dasharray="0, 100"
-                                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <path class="circular-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <path class="circular-fill secondary-ring" id="stats-weekly-ring" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                                         </svg>
                                         <div class="circular-text">
                                             <span class="circular-percent" id="stats-weekly-percent">0%</span>
@@ -318,17 +299,14 @@
                                         <span class="toggle-slider"></span>
                                     </label>
                                 </div>
-                                <div class="setting-item flex-between" id="reminder-time-setting"
-                                    style="display: none;">
+                                <div class="setting-item flex-between" id="reminder-time-setting" style="display: none;">
                                     <div class="setting-info">
                                         <span class="setting-label">Reminder Time</span>
                                         <p class="setting-desc">When should we send the notification?</p>
                                     </div>
-                                    <input type="time" id="settings-reminder-time" class="setting-time-picker"
-                                        value="20:00">
+                                    <input type="time" id="settings-reminder-time" class="setting-time-picker" value="20:00">
                                 </div>
-                                <div class="setting-item flex-between" id="reminder-test-setting"
-                                    style="display: none;">
+                                <div class="setting-item flex-between" id="reminder-test-setting" style="display: none;">
                                     <div class="setting-info">
                                         <span class="setting-label">Test Notification</span>
                                         <p class="setting-desc">Send a trial notification right now.</p>
@@ -365,7 +343,7 @@
                         <!-- Footer -->
                         <div class="settings-footer">
                             <span class="footer-app-name">Velora v1.0.0</span>
-                            <span class="footer-sub">Small steps. Every day. 🌸</span>
+                            <span class="footer-sub">Grow a little everyday. 🌸</span>
                         </div>
                     </section>
 
@@ -410,7 +388,7 @@
         <div class="sheet-content">
             <!-- Sheet handle bar for pulling feel -->
             <div class="sheet-handle"></div>
-
+            
             <div class="sheet-header">
                 <h2>Create New Goal</h2>
                 <button class="sheet-close-btn" id="sheet-close-btn">
@@ -422,8 +400,7 @@
                 <!-- Task Name -->
                 <div class="form-group">
                     <label for="task-name-input" class="form-label">Goal Name</label>
-                    <input type="text" id="task-name-input" class="form-input-text"
-                        placeholder="e.g. Read 10 Pages, Learn CSS Grid" required>
+                    <input type="text" id="task-name-input" class="form-input-text" placeholder="e.g. Read 10 Pages, Learn CSS Grid" required>
                 </div>
 
                 <!-- Category Selector -->
@@ -477,11 +454,9 @@
 
                 <!-- Optional Duration -->
                 <div class="form-group">
-                    <label for="task-duration-input" class="form-label">Duration <span
-                            class="label-optional">(Optional)</span></label>
+                    <label for="task-duration-input" class="form-label">Duration <span class="label-optional">(Optional)</span></label>
                     <div class="duration-input-wrapper">
-                        <input type="number" id="task-duration-input" class="form-input-number" placeholder="e.g. 20"
-                            min="1" max="1440">
+                        <input type="number" id="task-duration-input" class="form-input-number" placeholder="e.g. 20" min="1" max="1440">
                         <span class="duration-unit">minutes</span>
                     </div>
                 </div>
@@ -521,5 +496,4 @@
     <!-- Scripts -->
     <script src="app.js"></script>
 </body>
-
 </html>
