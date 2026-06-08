@@ -1,5 +1,5 @@
 // ==========================================================================
-// Velora — BUSINESS LOGIC & STATE MANAGEMENT
+// VELORA — BUSINESS LOGIC & STATE MANAGEMENT
 // ==========================================================================
 
 // Application State
@@ -68,13 +68,41 @@ function formatPrettyDate(dateStr) {
 // ==========================================================================
 function loadState() {
     try {
-        const localActive = localStorage.getItem("Velora_active_habits");
-        const localHistory = localStorage.getItem("Velora_history");
-        const localSettings = localStorage.getItem("Velora_settings");
+        // Migration of legacy momentum keys to new velora keys
+        if (localStorage.getItem("momentum_active_habits") && !localStorage.getItem("velora_active_habits")) {
+            localStorage.setItem("velora_active_habits", localStorage.getItem("momentum_active_habits"));
+            localStorage.setItem("velora_history", localStorage.getItem("momentum_history"));
+            if (localStorage.getItem("momentum_settings")) {
+                localStorage.setItem("velora_settings", localStorage.getItem("momentum_settings"));
+            }
+            localStorage.setItem("velora_first_launch", "true");
+
+            localStorage.removeItem("momentum_active_habits");
+            localStorage.removeItem("momentum_history");
+            localStorage.removeItem("momentum_settings");
+            localStorage.removeItem("momentum_first_launch");
+        }
+
+        const localActive = localStorage.getItem("velora_active_habits");
+        const localHistory = localStorage.getItem("velora_history");
+        const localSettings = localStorage.getItem("velora_settings");
 
         if (localActive && localHistory) {
             state.activeHabits = JSON.parse(localActive);
             state.history = JSON.parse(localHistory);
+
+            // Migrator: Clean up any lingering default tasks from active habits and history
+            const cleanActive = state.activeHabits.filter(h => !h.id.startsWith("habit_dsa") && h.id !== "habit_internship");
+            if (cleanActive.length !== state.activeHabits.length) {
+                state.activeHabits = cleanActive;
+                for (const dateStr in state.history) {
+                    if (state.history[dateStr].tasks) {
+                        state.history[dateStr].tasks = state.history[dateStr].tasks.filter(t => !t.id.startsWith("habit_dsa") && t.id !== "habit_internship");
+                    }
+                }
+                saveState();
+            }
+
             if (localSettings) {
                 state.settings = { ...state.settings, ...JSON.parse(localSettings) };
             }
@@ -89,27 +117,26 @@ function loadState() {
 
 function saveState() {
     try {
-        localStorage.setItem("Velora_active_habits", JSON.stringify(state.activeHabits));
-        localStorage.setItem("Velora_history", JSON.stringify(state.history));
-        localStorage.setItem("Velora_settings", JSON.stringify(state.settings));
+        localStorage.setItem("velora_active_habits", JSON.stringify(state.activeHabits));
+        localStorage.setItem("velora_history", JSON.stringify(state.history));
+        localStorage.setItem("velora_settings", JSON.stringify(state.settings));
     } catch (e) {
         console.error("Error saving state to local storage:", e);
     }
 }
 
 function initFirstLaunch() {
-
-    // No default habits
+    // 1. Initial Habits (first launch experience is empty as requested)
     state.activeHabits = [];
 
-    // Initialize empty history for today
+    // 2. Initialize history for today
     const todayStr = getLocalDateString();
-
     state.history[todayStr] = {
         date: todayStr,
         tasks: []
     };
 
+    // 3. Mark first launch complete
     localStorage.setItem("velora_first_launch", "true");
     saveState();
 }
@@ -141,10 +168,10 @@ function isDateCompleted(dateStr) {
 function calculateStreaks() {
     const todayStr = getLocalDateString();
     const yesterdayStr = getOffsetDate(todayStr, -1);
-
+    
     // Sort all history dates chronologically
     const historyDates = Object.keys(state.history).sort();
-
+    
     let currentStreak = 0;
     let bestStreak = 0;
     let runningStreak = 0;
@@ -264,11 +291,11 @@ function getStats() {
 function triggerConfetti() {
     const canvas = document.getElementById("confetti-canvas");
     const ctx = canvas.getContext("2d");
-
+    
     // Resize to container size
     canvas.width = canvas.parentElement.clientWidth;
     canvas.height = canvas.parentElement.clientHeight;
-
+    
     const colors = ["#8B7CF8", "#B8AEFF", "#FFD6E8", "#B7F5C5", "#FF9ECA", "#FFEDD5"];
     const particles = [];
     const particleCount = 75;
@@ -329,9 +356,9 @@ function showToast(title, body) {
     const toast = document.getElementById("toast-notification");
     document.getElementById("toast-title").innerText = title;
     document.getElementById("toast-body").innerText = body;
-
+    
     toast.classList.add("show");
-
+    
     // Play subtle soft notification chime in code if browser allows
     try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -347,7 +374,7 @@ function showToast(title, body) {
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
         osc.start();
         osc.stop(audioCtx.currentTime + 0.4);
-    } catch (e) { }
+    } catch(e) {}
 
     setTimeout(() => {
         toast.classList.remove("show");
@@ -390,8 +417,8 @@ function runNotificationScheduler() {
             "Take 5 minutes for your habits. 🌱"
         ];
         const randomBody = reminders[Math.floor(Math.random() * reminders.length)];
-        sendNotification("velora Reminder", randomBody);
-
+        sendNotification("Velora Reminder", randomBody);
+        
         lastNotificationDate = todayStr;
     }
 }
@@ -404,7 +431,7 @@ function runNotificationScheduler() {
 function updateGreeting() {
     const hour = new Date().getHours();
     let greeting = "Good Morning ☀️";
-
+    
     if (hour >= 12 && hour < 17) {
         greeting = "Good Afternoon 🌸";
     } else if (hour >= 17 || hour < 5) {
@@ -422,14 +449,14 @@ function updateGreeting() {
 function renderToday() {
     const todayStr = getLocalDateString();
     checkDayTransition();
-
+    
     const todayEntry = state.history[todayStr];
     const { currentStreak, bestStreak } = calculateStreaks();
-
+    
     // A. Update Streaks Card
     document.getElementById("today-streak-display").innerText = `${currentStreak} Day Streak`;
     document.getElementById("best-streak-display").innerText = bestStreak;
-
+    
     const subtitleEl = document.getElementById("streak-quote");
     if (currentStreak === 0) {
         subtitleEl.innerText = "Start fresh today! ✨";
@@ -477,7 +504,7 @@ function renderToday() {
             <div class="empty-state">
                 <span class="empty-icon">🌸</span>
                 <h3 class="empty-title">No tasks yet</h3>
-                <p class="empty-body">Add one small goal and start building Velora.</p>
+                <p class="empty-body">Add one small goal and start growing with Velora.</p>
             </div>
         `;
         return;
@@ -486,15 +513,15 @@ function renderToday() {
     todayEntry.tasks.forEach(task => {
         const isComp = task.completed ? "completed" : "";
         const catObj = CATEGORIES[task.category] || CATEGORIES.personal;
-
-        const durationTag = task.duration
-            ? `<span class="duration-tag"><i data-lucide="clock"></i> ${task.duration} min</span>`
+        
+        const durationTag = task.duration 
+            ? `<span class="duration-tag"><i data-lucide="clock"></i> ${task.duration} min</span>` 
             : "";
 
         const card = document.createElement("div");
         card.className = `task-card ${isComp} ${task.category}`;
         card.setAttribute("data-id", task.id);
-
+        
         card.innerHTML = `
             <div class="category-indicator"></div>
             <div class="checkbox-wrapper">
@@ -531,7 +558,7 @@ function toggleTaskCompletion(taskId) {
     if (task) {
         const oldState = task.completed;
         task.completed = !task.completed;
-
+        
         // Dynamic confetti on perfect day completion
         const allCompletedNow = todayEntry.tasks.every(t => t.completed);
         const previouslyAllCompleted = todayEntry.tasks.every(t => t.id === taskId ? oldState : t.completed);
@@ -610,7 +637,7 @@ function renderCalendar() {
         const dayEntry = state.history[cellDateStr];
         if (dayEntry && dayEntry.tasks.length > 0) {
             const allDone = dayEntry.tasks.every(t => t.completed);
-
+            
             if (allDone) {
                 cell.classList.add("status-completed");
                 cell.classList.add("has-streak");
@@ -754,7 +781,7 @@ function renderSettings() {
 
     state.activeHabits.forEach(habit => {
         const catMeta = CATEGORIES[habit.category] || CATEGORIES.personal;
-
+        
         const durationInfo = habit.duration ? `(${habit.duration} min)` : "";
 
         const item = document.createElement("div");
@@ -810,7 +837,7 @@ function showConfirmDialog(title, message, onConfirm) {
     const dialog = document.getElementById("confirm-dialog");
     document.getElementById("confirm-dialog-title").innerText = title;
     document.getElementById("confirm-dialog-message").innerText = message;
-
+    
     confirmCallback = onConfirm;
     dialog.classList.add("open");
 }
@@ -905,10 +932,10 @@ addForm.addEventListener("submit", (e) => {
     // 3. Save, close & refresh
     saveState();
     closeAddTaskSheet();
-
+    
     // Jump back to Today page to see the newly created habit immediately
     switchTab("today");
-
+    
     showToast("Goal Added!", "Your daily tracker has been updated.");
 });
 
@@ -927,11 +954,11 @@ document.getElementById("settings-avatar-select").addEventListener("change", (e)
 
 document.getElementById("settings-reminder-toggle").addEventListener("change", (e) => {
     state.settings.reminders = e.target.checked;
-
+    
     if (state.settings.reminders) {
         requestNotificationPermission();
     }
-
+    
     saveState();
     renderSettings();
 });
