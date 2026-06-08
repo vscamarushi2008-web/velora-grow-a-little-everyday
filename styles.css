@@ -32,7 +32,7 @@
 
     /* Safe Area Defaults (overwritten by env() if supported) */
     --safe-top: 16px;
-    --safe-bottom: 24px;
+    --safe-bottom: 42px;
 }
 
 /* Base Resets */
