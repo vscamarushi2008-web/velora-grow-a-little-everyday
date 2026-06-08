@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Momentum — Small steps. Every day.</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#F8F7FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%238B7CF8'/><text x='50%' y='68%' font-size='50' text-anchor='middle'>🔥</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%238B7CF8'/><text x='50%' y='68%' font-size='50' text-anchor='middle'>🔥</text></svg>">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Canvas for Celebratory Confetti -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Desktop Wrapper (centers the phone mockup on desktop screens) -->
+    <div class="app-wrapper">
+        <div class="phone-frame">
+            <!-- Screen Content Container -->
+            <div class="screen-container">
+                
+                <!-- Main Header (Static / Dynamic Greeting) -->
+                <header class="app-header">
+                    <div class="header-profile">
+                        <div class="avatar" id="avatar-btn">🌸</div>
+                        <div class="greeting-info">
+                            <span class="greeting-time" id="greeting-text">Good Morning ☀️</span>
+                            <span class="user-name" id="user-display-name">friend</span>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="icon-btn" id="quick-add-btn" aria-label="Add Habit">
+                            <i data-lucide="plus"></i>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Page Contents Wrapper -->
+                <main class="page-content" id="page-content">
+                    
+                    <!-- ========================================== -->
+                    <!-- TODAY PAGE (DEFAULT) -->
+                    <!-- ========================================== -->
+                    <section class="page active" id="page-today">
+                        
+                        <!-- Streak & Progress Section -->
+                        <div class="dashboard-grid">
+                            <!-- Streak Card -->
+                            <div class="dashboard-card streak-card bounce-in">
+                                <div class="card-glow"></div>
+                                <div class="streak-badge">
+                                    <span class="streak-fire-emoji">🔥</span>
+                                </div>
+                                <div class="streak-info">
+                                    <h3 class="streak-count" id="today-streak-display">0 Day Streak</h3>
+                                    <p class="streak-subtitle" id="streak-quote">Keep showing up.</p>
+                                </div>
+                                <div class="streak-best-badge">
+                                    <i data-lucide="award" class="best-streak-icon"></i>
+                                    <span>Best: <strong id="best-streak-display">0</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Card -->
+                            <div class="dashboard-card progress-card bounce-in">
+                                <div class="progress-header">
+                                    <span class="progress-title">Today's Progress</span>
+                                    <span class="progress-fraction" id="progress-fraction">0 / 0 Completed</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                                </div>
+                                <p class="progress-message" id="progress-message">Let's get started!</p>
+                            </div>
+                        </div>
+
+                        <!-- Daily Motivation Quote -->
+                        <div class="quote-card fade-in">
+                            <div class="quote-icon">✨</div>
+                            <p class="quote-text" id="motivation-quote">"One small step is enough today."</p>
+                            <span class="quote-author">Momentum Daily</span>
+                        </div>
+
+                        <!-- Today's Tasks Section -->
+                        <div class="tasks-section">
+                            <div class="section-header">
+                                <h2>Today's Goals</h2>
+                                <span class="current-date" id="current-date-text">June 8, 2026</span>
+                            </div>
+
+                            <!-- Tasks List Container -->
+                            <div class="tasks-list" id="tasks-list-container">
+                                <!-- Dynamic tasks get injected here -->
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ========================================== -->
+                    <!-- CALENDAR PAGE -->
+                    <!-- ========================================== -->
+                    <section class="page" id="page-calendar">
+                        <div class="page-header-container">
+                            <h2>Consistency Grid</h2>
+                            <p class="page-sub">Visualize your daily dedication.</p>
+                        </div>
+
+                        <!-- Calendar Main Card -->
+                        <div class="calendar-card fade-in">
+                            <div class="calendar-header">
+                                <button class="calendar-nav-btn" id="prev-month-btn">
+                                    <i data-lucide="chevron-left"></i>
+                                </button>
+                                <h3 class="calendar-month-year" id="calendar-month-year-display">June 2026</h3>
+                                <button class="calendar-nav-btn" id="next-month-btn">
+                                    <i data-lucide="chevron-right"></i>
+                                </button>
+                            </div>
+
+                            <!-- Days of Week Headers -->
+                            <div class="calendar-weekdays">
+                                <div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div><div>S</div>
+                            </div>
+
+                            <!-- Calendar Grid -->
+                            <div class="calendar-days-grid" id="calendar-days-grid">
+                                <!-- Dynamic day elements injected here -->
+                            </div>
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="calendar-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot completed"></span>
+                                <span>Perfect Day</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot missed"></span>
+                                <span>Missed Day</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot streak">🔥</span>
+                                <span>Streak Active</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ========================================== -->
+                    <!-- STATISTICS PAGE -->
+                    <!-- ========================================== -->
+                    <section class="page" id="page-stats">
+                        <div class="page-header-container">
+                            <h2>Insights & Stats</h2>
+                            <p class="page-sub">Your growth in numbers.</p>
+                        </div>
+
+                        <!-- Stats Primary Overview -->
+                        <div class="stats-overview-grid">
+                            <div class="stat-mini-card">
+                                <div class="stat-icon-wrapper fire">
+                                    <i data-lucide="flame"></i>
+                                </div>
+                                <div class="stat-mini-info">
+                                    <span class="stat-label">Current Streak</span>
+                                    <span class="stat-value" id="stats-current-streak">0</span>
+                                </div>
+                            </div>
+                            <div class="stat-mini-card">
+                                <div class="stat-icon-wrapper trophy">
+                                    <i data-lucide="trophy"></i>
+                                </div>
+                                <div class="stat-mini-info">
+                                    <span class="stat-label">Best Streak</span>
+                                    <span class="stat-value" id="stats-best-streak">0</span>
+                                </div>
+                            </div>
+                            <div class="stat-mini-card">
+                                <div class="stat-icon-wrapper check">
+                                    <i data-lucide="check-circle-2"></i>
+                                </div>
+                                <div class="stat-mini-info">
+                                    <span class="stat-label">Total Completed</span>
+                                    <span class="stat-value" id="stats-total-completed">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Charts Section -->
+                        <div class="charts-container">
+                            <!-- Circular Gauge Chart Card -->
+                            <div class="chart-card fade-in">
+                                <h3>Completion Rates</h3>
+                                <div class="completion-rates-split">
+                                    <div class="circular-progress-wrapper">
+                                        <svg class="circular-svg" viewBox="0 0 36 36">
+                                            <path class="circular-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <path class="circular-fill" id="stats-monthly-ring" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        </svg>
+                                        <div class="circular-text">
+                                            <span class="circular-percent" id="stats-monthly-percent">0%</span>
+                                            <span class="circular-label">Month</span>
+                                        </div>
+                                    </div>
+                                    <div class="circular-progress-wrapper">
+                                        <svg class="circular-svg" viewBox="0 0 36 36">
+                                            <path class="circular-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <path class="circular-fill secondary-ring" id="stats-weekly-ring" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        </svg>
+                                        <div class="circular-text">
+                                            <span class="circular-percent" id="stats-weekly-percent">0%</span>
+                                            <span class="circular-label">Week</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Weekly Activity Bar Chart -->
+                            <div class="chart-card fade-in">
+                                <h3>Last 7 Days Consistency</h3>
+                                <div class="weekly-bar-chart" id="weekly-bar-chart">
+                                    <!-- Dynamic bars representing completion of the last 7 days -->
+                                </div>
+                            </div>
+
+                            <!-- Category breakdown -->
+                            <div class="chart-card fade-in">
+                                <h3>Category Breakdown</h3>
+                                <div class="category-breakdown-list" id="category-breakdown-container">
+                                    <!-- Dynamic breakdown progress bars -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ========================================== -->
+                    <!-- SETTINGS PAGE -->
+                    <!-- ========================================== -->
+                    <section class="page" id="page-settings">
+                        <div class="page-header-container">
+                            <h2>Settings</h2>
+                            <p class="page-sub">Tailor Momentum to your rhythm.</p>
+                        </div>
+
+                        <!-- Settings Section: Profile -->
+                        <div class="settings-group fade-in">
+                            <div class="settings-group-title">Personalization</div>
+                            <div class="settings-card">
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <label for="settings-name-input" class="setting-label">Your Name</label>
+                                        <p class="setting-desc">How Momentum should greet you.</p>
+                                    </div>
+                                    <input type="text" id="settings-name-input" class="setting-input" value="friend">
+                                </div>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <label for="settings-avatar-select" class="setting-label">Profile Icon</label>
+                                        <p class="setting-desc">A cute emoji for your avatar.</p>
+                                    </div>
+                                    <select id="settings-avatar-select" class="setting-select">
+                                        <option value="🌸">🌸 Cherry Blossom</option>
+                                        <option value="☀️">☀️ Bright Sun</option>
+                                        <option value="🌙">🌙 Crescent Moon</option>
+                                        <option value="🌱">🌱 Fresh Sprout</option>
+                                        <option value="🦊">🦊 Cute Fox</option>
+                                        <option value="🐼">🐼 Cozy Panda</option>
+                                        <option value="🐱">🐱 Playful Cat</option>
+                                        <option value="⚡">⚡ Lightning Bolt</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Settings Section: Reminders -->
+                        <div class="settings-group fade-in">
+                            <div class="settings-group-title">Daily Reminders</div>
+                            <div class="settings-card">
+                                <div class="setting-item flex-between">
+                                    <div class="setting-info">
+                                        <span class="setting-label">Enable Reminders</span>
+                                        <p class="setting-desc">Get nudged to complete your habits.</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="settings-reminder-toggle">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-item flex-between" id="reminder-time-setting" style="display: none;">
+                                    <div class="setting-info">
+                                        <span class="setting-label">Reminder Time</span>
+                                        <p class="setting-desc">When should we send the notification?</p>
+                                    </div>
+                                    <input type="time" id="settings-reminder-time" class="setting-time-picker" value="20:00">
+                                </div>
+                                <div class="setting-item flex-between" id="reminder-test-setting" style="display: none;">
+                                    <div class="setting-info">
+                                        <span class="setting-label">Test Notification</span>
+                                        <p class="setting-desc">Send a trial notification right now.</p>
+                                    </div>
+                                    <button class="text-btn success-color" id="test-notification-btn">Send Test</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Settings Section: Habit Management -->
+                        <div class="settings-group fade-in">
+                            <div class="settings-group-title">Manage Goals</div>
+                            <div class="settings-card">
+                                <div class="settings-habit-list" id="settings-habits-list">
+                                    <!-- Dynamic list of habits for deletion/management -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Settings Section: Reset / Danger -->
+                        <div class="settings-group fade-in">
+                            <div class="settings-group-title">Danger Zone</div>
+                            <div class="settings-card danger">
+                                <div class="setting-item flex-between">
+                                    <div class="setting-info">
+                                        <span class="setting-label text-danger">Reset All Data</span>
+                                        <p class="setting-desc">Permanently wipe all habits, streaks, and history.</p>
+                                    </div>
+                                    <button class="text-btn btn-danger" id="reset-data-btn">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="settings-footer">
+                            <span class="footer-app-name">Momentum v1.0.0</span>
+                            <span class="footer-sub">Small steps. Every day. 🌸</span>
+                        </div>
+                    </section>
+
+                </main>
+
+                <!-- Bottom Navigation Bar -->
+                <nav class="bottom-nav">
+                    <button class="nav-item active" data-tab="today" aria-label="Today">
+                        <i data-lucide="check-square"></i>
+                        <span>Today</span>
+                    </button>
+                    <button class="nav-item" data-tab="calendar" aria-label="Calendar">
+                        <i data-lucide="calendar"></i>
+                        <span>Calendar</span>
+                    </button>
+                    <!-- Center FAB button placeholder for nice layout spacing -->
+                    <div class="fab-spacer"></div>
+                    <button class="nav-item" data-tab="stats" aria-label="Statistics">
+                        <i data-lucide="bar-chart-3"></i>
+                        <span>Stats</span>
+                    </button>
+                    <button class="nav-item" data-tab="settings" aria-label="Settings">
+                        <i data-lucide="settings"></i>
+                        <span>Settings</span>
+                    </button>
+                </nav>
+
+                <!-- Bottom Tab Bar Floating Action Button (+) -->
+                <button class="floating-fab" id="fab-add-task" aria-label="Add New Task">
+                    <i data-lucide="plus"></i>
+                </button>
+
+            </div><!-- .screen-container -->
+        </div><!-- .phone-frame -->
+    </div><!-- .app-wrapper -->
+
+    <!-- ========================================== -->
+    <!-- ADD TASK BOTTOM SHEET DIALOG -->
+    <!-- ========================================== -->
+    <div class="bottom-sheet" id="add-task-sheet">
+        <div class="sheet-backdrop" id="sheet-backdrop"></div>
+        <div class="sheet-content">
+            <!-- Sheet handle bar for pulling feel -->
+            <div class="sheet-handle"></div>
+            
+            <div class="sheet-header">
+                <h2>Create New Goal</h2>
+                <button class="sheet-close-btn" id="sheet-close-btn">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <form id="add-task-form" autocomplete="off">
+                <!-- Task Name -->
+                <div class="form-group">
+                    <label for="task-name-input" class="form-label">Goal Name</label>
+                    <input type="text" id="task-name-input" class="form-input-text" placeholder="e.g. Read 10 Pages, Learn CSS Grid" required>
+                </div>
+
+                <!-- Category Selector -->
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <div class="category-grid">
+                        <label class="category-chip">
+                            <input type="radio" name="task-category" value="dsa" checked>
+                            <span class="chip-content dsa-theme">
+                                <span class="chip-icon">💻</span>
+                                <span class="chip-label">DSA</span>
+                            </span>
+                        </label>
+                        <label class="category-chip">
+                            <input type="radio" name="task-category" value="coding">
+                            <span class="chip-content coding-theme">
+                                <span class="chip-icon">🚀</span>
+                                <span class="chip-label">Coding</span>
+                            </span>
+                        </label>
+                        <label class="category-chip">
+                            <input type="radio" name="task-category" value="study">
+                            <span class="chip-content study-theme">
+                                <span class="chip-icon">📚</span>
+                                <span class="chip-label">Study</span>
+                            </span>
+                        </label>
+                        <label class="category-chip">
+                            <input type="radio" name="task-category" value="reading">
+                            <span class="chip-content reading-theme">
+                                <span class="chip-icon">📖</span>
+                                <span class="chip-label">Reading</span>
+                            </span>
+                        </label>
+                        <label class="category-chip">
+                            <input type="radio" name="task-category" value="fitness">
+                            <span class="chip-content fitness-theme">
+                                <span class="chip-icon">🏃</span>
+                                <span class="chip-label">Fitness</span>
+                            </span>
+                        </label>
+                        <label class="category-chip">
+                            <input type="radio" name="task-category" value="personal">
+                            <span class="chip-content personal-theme">
+                                <span class="chip-icon">🎯</span>
+                                <span class="chip-label">Personal</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Optional Duration -->
+                <div class="form-group">
+                    <label for="task-duration-input" class="form-label">Duration <span class="label-optional">(Optional)</span></label>
+                    <div class="duration-input-wrapper">
+                        <input type="number" id="task-duration-input" class="form-input-number" placeholder="e.g. 20" min="1" max="1440">
+                        <span class="duration-unit">minutes</span>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn" id="save-task-btn">
+                    <span>Add Goal</span>
+                    <i data-lucide="check"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- GENERAL DIALOG FOR CONFIRMATIONS -->
+    <!-- ========================================== -->
+    <div class="custom-dialog-overlay" id="confirm-dialog">
+        <div class="custom-dialog">
+            <h3 id="confirm-dialog-title">Are you sure?</h3>
+            <p id="confirm-dialog-message">This action cannot be undone.</p>
+            <div class="dialog-actions">
+                <button class="dialog-btn cancel" id="confirm-cancel-btn">Cancel</button>
+                <button class="dialog-btn action" id="confirm-action-btn">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom In-App Notification Toast -->
+    <div class="toast-notification" id="toast-notification">
+        <div class="toast-icon">🔔</div>
+        <div class="toast-content">
+            <div class="toast-title" id="toast-title">Reminder!</div>
+            <div class="toast-desc" id="toast-body">Keep your streak alive today.</div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

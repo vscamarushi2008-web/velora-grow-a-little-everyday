@@ -1,0 +1,17 @@
+{
+  "name": "Momentum Habit Tracker",
+  "short_name": "Momentum",
+  "description": "Small steps. Every day.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#F8F7FF",
+  "theme_color": "#8B7CF8",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}
