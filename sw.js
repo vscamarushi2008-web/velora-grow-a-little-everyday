@@ -45,7 +45,7 @@ self.addEventListener("fetch", (e) => {
                         }
                     })
                     .catch(() => { /* Ignore background fetch failure */ });
-
+                
                 return cachedResponse;
             }
             return fetch(e.request);
