@@ -56,5 +56,10 @@ Coming Soon
 - ☁️ Cloud sync
 - 🤖 Smart habit suggestions
 - 🏆 Achievement system
+
+
   
+## 🎯 Access the app from here👇
+https://vscamarushi2008-web.github.io/velora-grow-a-little-everyday/
+
 **Velora — Grow a little every day.**
